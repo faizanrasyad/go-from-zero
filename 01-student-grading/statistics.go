@@ -13,7 +13,7 @@ func Statistics() {
 			smartStudentGrade,
 			dumbStudentName,
 			dumbStudentGrade,
-			overallAverage = calcAverage()
+			overallAverage = CalcAverageStats()
 
 		fmt.Println("Highest Average")
 		fmt.Println(smartStudentName, "(", smartStudentGrade, ")")
@@ -29,7 +29,7 @@ func Statistics() {
 
 }
 
-func calcAverage() (smartStudentName string,
+func CalcAverageStats() (smartStudentName string,
 	smartStudentGrade float64,
 	dumbStudentName string,
 	dumbStudentGrade float64,

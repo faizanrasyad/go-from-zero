@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
+
+var sortedStudent []Student
 
 func ViewStudents() {
 
@@ -9,8 +14,13 @@ func ViewStudents() {
 	if studentsLen == 0 {
 		fmt.Println("No students added yet")
 	} else {
+		if studentsLen > 1 {
+			sort.Slice(students, func(i, j int) bool {
+				return CalcAverageView(students[i].Grades) > 
+						CalcAverageView(students[j].Grades)
+			})
+		}
 		for i := 0; i < len(students); i++ {
-			var sumOfGrades float64
 			var avgOfGrades float64
 			var gradeLen int = len(students[i].Grades)
 			var status string
@@ -23,9 +33,8 @@ func ViewStudents() {
 			for j := 0; j < gradeLen; j++ {
 				grade := students[i].Grades[j]
 				fmt.Println(grade)
-				sumOfGrades += grade
 			}
-			avgOfGrades = sumOfGrades / float64(gradeLen)
+			avgOfGrades = CalcAverageView(students[i].Grades)
 			if avgOfGrades >= 60 {
 				status = "PASS"
 			} else {
@@ -40,4 +49,12 @@ func ViewStudents() {
 
 	Landing()
 
+}
+
+func CalcAverageView(grades []float64) float64 {
+	var sum float64
+	for i := 0; i < len(grades); i++ {
+		sum += grades[i]
+	}
+	return sum / float64(len(grades)) 
 }
