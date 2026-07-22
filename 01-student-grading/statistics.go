@@ -8,28 +8,30 @@ func Statistics() {
 	fmt.Println("Total Students : ", len(students))
 	fmt.Println("")
 
-	var smartStudentName, 
-		smartStudentGrade, 
-		dumbStudentName, 
-		dumbStudentGrade, 
-		overallAverage = calcAverage()
-	
-	fmt.Println("Highest Average")
-	fmt.Println(smartStudentName, "(", smartStudentGrade, ")")
-	fmt.Println("")
-	fmt.Println("Lowest Average")
-	fmt.Println(dumbStudentName, "(", dumbStudentGrade, ")")
-	fmt.Println("")
-	fmt.Println("Overall Average")
-	fmt.Println(overallAverage)
+	if len(students) != 0 {
+		var smartStudentName,
+			smartStudentGrade,
+			dumbStudentName,
+			dumbStudentGrade,
+			overallAverage = calcAverage()
+
+		fmt.Println("Highest Average")
+		fmt.Println(smartStudentName, "(", smartStudentGrade, ")")
+		fmt.Println("")
+		fmt.Println("Lowest Average")
+		fmt.Println(dumbStudentName, "(", dumbStudentGrade, ")")
+		fmt.Println("")
+		fmt.Println("Overall Average")
+		fmt.Println(overallAverage)
+	}
 
 	Landing()
 
 }
 
-func calcAverage() (smartStudentName string, 
-	smartStudentGrade float64, 
-	dumbStudentName string, 
+func calcAverage() (smartStudentName string,
+	smartStudentGrade float64,
+	dumbStudentName string,
 	dumbStudentGrade float64,
 	overallAverage float64) {
 
@@ -49,13 +51,13 @@ func calcAverage() (smartStudentName string,
 	for i := 0; i < len(studentOverallGrades); i++ {
 		if studentOverallGrades[i] > studentOverallGrades[smartStudent] {
 			smartStudent = i
-		} 
+		}
 		if studentOverallGrades[i] < studentOverallGrades[dumbStudent] {
 			dumbStudent = i
 		}
 		sumOverallGrades += studentOverallGrades[i]
 	}
-	
+
 	overallAverage = sumOverallGrades / float64(len(studentOverallGrades))
 	smartStudentName = students[smartStudent].Name
 	smartStudentGrade = studentOverallGrades[smartStudent]

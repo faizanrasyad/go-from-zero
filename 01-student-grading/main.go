@@ -8,6 +8,13 @@ type Student struct {
 
 var students []Student
 
+func RemoveStudent(index int) {
+	temp := make([]Student, 0)
+	temp = append(temp, students[:index]...)
+	temp = append(temp, students[index + 1:]...)
+	students = temp
+}
+
 func main() {
 	Landing()
 }
