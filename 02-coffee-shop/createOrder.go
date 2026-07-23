@@ -7,7 +7,7 @@ import (
 
 func CreateOrder() {
 	var newOrder Order
-	var orderItems []OrderItem
+	var orderedItems []OrderItem
 
 	fmt.Print("Customer Name: ")
 	fmt.Scanln(&newOrder.CustomerName)
@@ -25,24 +25,24 @@ func CreateOrder() {
 			fmt.Scanln(&item.Quantity)
 			item.Menu = Menus[menuID-1]
 
-			orderItems = append(orderItems, item)
+			orderedItems = append(orderedItems, item)
 		} else {
 			i = -1
 		}
 	}
 
-	newOrder.Items = orderItems
+	newOrder.Items = orderedItems
 	newOrder.OrderID = generateOrderID()
 	Orders = append(Orders, newOrder)
 
 	fmt.Println("")
-	createReceipt(newOrder.CustomerName, orderItems)
+	createReceipt(newOrder.CustomerName, orderedItems)
 	main()
 
 }
 
 func generateOrderID() string {
-	orderLen := len(Orders)
+	orderLen := len(Orders) + 1
 	var orderID string
 
 	if orderLen < 10 {
@@ -56,7 +56,7 @@ func generateOrderID() string {
 	return orderID
 }
 
-func createReceipt(customerName string, orderItems []OrderItem) {
+func createReceipt(customerName string, orderedItems []OrderItem) {
 	fmt.Println("===========================")
 	fmt.Println("BrewHub Coffee Cashier")
 	fmt.Println("===========================")
@@ -65,13 +65,13 @@ func createReceipt(customerName string, orderItems []OrderItem) {
 	fmt.Println("")
 	
 	var subtotal float64
-	for i := 0; i < len(orderItems); i++ {
-		priceAfterQuantity := orderItems[i].Menu.Price * float64(orderItems[i].Quantity)
+	for i := 0; i < len(orderedItems); i++ {
+		priceAfterQuantity := orderedItems[i].Menu.Price * float64(orderedItems[i].Quantity)
 		subtotal += priceAfterQuantity
 		fmt.Println(
-			orderItems[i].Quantity, 
+			orderedItems[i].Quantity, 
 			"x", 
-			orderItems[i].Menu.Name,
+			orderedItems[i].Menu.Name,
 			"	Rp",
 			priceAfterQuantity,
 		)
