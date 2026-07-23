@@ -60,7 +60,7 @@ func main() {
 	case 4: SearchOrder()
 			main()
 	case 5: DeleteOrder()
-	case 6:
+	case 6: DailySales()
 	case 7: os.Exit(0)
 	}
 }

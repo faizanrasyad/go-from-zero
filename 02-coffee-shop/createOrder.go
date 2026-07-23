@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"slices"
 	"strconv"
+	"strings"
 )
 
 func CreateOrder() {
@@ -43,15 +44,22 @@ func CreateOrder() {
 }
 
 func generateOrderID() string {
-	orderLen := len(Orders) + 1
 	var orderID string
 
-	if orderLen < 10 {
-		orderID = "ORD00" + strconv.Itoa(orderLen)
-	} else if orderLen < 100 {
-		orderID = "ORD0" + strconv.Itoa(orderLen)
+	if len(Orders) != 0 {
+		lastOrderID := Orders[len(Orders) - 1].OrderID
+		lastNum, _ := strconv.Atoi(strings.Split(lastOrderID, "D")[1])
+		currentNum := lastNum + 1
+
+		if currentNum < 10 {
+			orderID = "ORD00" + strconv.Itoa(currentNum)
+		} else if currentNum < 100 {
+			orderID = "ORD0" + strconv.Itoa(currentNum)
+		} else {
+			orderID = "ORD" + strconv.Itoa(currentNum)
+		}
 	} else {
-		orderID = "ORD" + strconv.Itoa(orderLen)
+		orderID = "ORD001"
 	}
 
 	return orderID
@@ -64,15 +72,15 @@ func CreateReceipt(order Order) {
 	fmt.Println("")
 	fmt.Println("Customer:", order.CustomerName)
 	fmt.Println("")
-	
+
 	var subtotal float64
 	orderedItems := order.Items
 	for i := 0; i < len(orderedItems); i++ {
 		priceAfterQuantity := orderedItems[i].Menu.Price * float64(orderedItems[i].Quantity)
 		subtotal += priceAfterQuantity
 		fmt.Println(
-			orderedItems[i].Quantity, 
-			"x", 
+			orderedItems[i].Quantity,
+			"x",
 			orderedItems[i].Menu.Name,
 			"	Rp",
 			priceAfterQuantity,
@@ -99,7 +107,7 @@ func DeleteOrder() {
 	var orderIndex int
 
 	for i := 0; i < len(Orders); i++ {
-		if (order.OrderID == Orders[i].OrderID) {
+		if order.OrderID == Orders[i].OrderID {
 			orderIndex = i
 		}
 	}
@@ -109,9 +117,9 @@ func DeleteOrder() {
 	fmt.Scanln(&isSure)
 
 	if isSure == "y" {
-		Orders = slices.Delete(Orders, orderIndex, orderIndex + 1)
+		Orders = slices.Delete(Orders, orderIndex, orderIndex+1)
 		fmt.Println(order.OrderID, "order has been deleted.")
-	} 
+	}
 
 	main()
 }
