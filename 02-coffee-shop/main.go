@@ -1,6 +1,9 @@
-package coffeeshop
+package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type MenuItem struct {
 	ID int
@@ -46,14 +49,15 @@ func main() {
 	
 	var chosen int
 	fmt.Scanln(&chosen)
+	fmt.Println("")
 
 	switch chosen {
-	case 1: 
+	case 1: ShowMenu()
 	case 2:
 	case 3:
 	case 4:
 	case 5:
 	case 6:
-	case 7:
+	case 7: os.Exit(0)
 	}
 }
