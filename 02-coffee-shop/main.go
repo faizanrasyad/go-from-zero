@@ -58,7 +58,8 @@ func main() {
 	case 2: CreateOrder()
 	case 3: ViewOrders()
 	case 4: SearchOrder()
-	case 5:
+			main()
+	case 5: DeleteOrder()
 	case 6:
 	case 7: os.Exit(0)
 	}

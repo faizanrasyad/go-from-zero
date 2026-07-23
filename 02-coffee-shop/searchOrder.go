@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func SearchOrder() {
+func SearchOrder() Order {
 	var orderID string
 	var order Order
 	fmt.Print("Order ID : ")
@@ -17,8 +17,9 @@ func SearchOrder() {
 		CreateReceipt(order)
 	} else {
 		fmt.Println("Order not found.")
-	}
+	}	
 
-	main()
-	
+	return order
 }
+
+

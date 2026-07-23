@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 )
 
@@ -91,4 +92,26 @@ func CreateReceipt(order Order) {
 	fmt.Println("")
 	fmt.Println("Thank you!")
 	fmt.Println("")
+}
+
+func DeleteOrder() {
+	order := SearchOrder()
+	var orderIndex int
+
+	for i := 0; i < len(Orders); i++ {
+		if (order.OrderID == Orders[i].OrderID) {
+			orderIndex = i
+		}
+	}
+
+	var isSure string
+	fmt.Print("Are you sure to delete this? (y/n) ")
+	fmt.Scanln(&isSure)
+
+	if isSure == "y" {
+		Orders = slices.Delete(Orders, orderIndex, orderIndex + 1)
+		fmt.Println(order.OrderID, "order has been deleted.")
+	} 
+
+	main()
 }
