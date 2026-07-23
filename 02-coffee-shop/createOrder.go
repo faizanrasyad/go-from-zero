@@ -36,7 +36,7 @@ func CreateOrder() {
 	Orders = append(Orders, newOrder)
 
 	fmt.Println("")
-	createReceipt(newOrder.CustomerName, orderedItems)
+	CreateReceipt(newOrder)
 	main()
 
 }
@@ -56,15 +56,16 @@ func generateOrderID() string {
 	return orderID
 }
 
-func createReceipt(customerName string, orderedItems []OrderItem) {
+func CreateReceipt(order Order) {
 	fmt.Println("===========================")
 	fmt.Println("BrewHub Coffee Cashier")
 	fmt.Println("===========================")
 	fmt.Println("")
-	fmt.Println("Customer:", customerName)
+	fmt.Println("Customer:", order.CustomerName)
 	fmt.Println("")
 	
 	var subtotal float64
+	orderedItems := order.Items
 	for i := 0; i < len(orderedItems); i++ {
 		priceAfterQuantity := orderedItems[i].Menu.Price * float64(orderedItems[i].Quantity)
 		subtotal += priceAfterQuantity

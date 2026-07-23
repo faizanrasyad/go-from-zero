@@ -57,7 +57,7 @@ func main() {
 	case 1: ShowMenu()
 	case 2: CreateOrder()
 	case 3: ViewOrders()
-	case 4:
+	case 4: SearchOrder()
 	case 5:
 	case 6:
 	case 7: os.Exit(0)
