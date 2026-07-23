@@ -33,6 +33,9 @@ var Menus = []MenuItem {
 	{8, "Cheesecake", 30000},
 }
 
+var Orders []Order
+var OrderItems []OrderItem
+
 func main() {
 	fmt.Println("===========================")
 	fmt.Println("BrewHub Coffee Cashier")
@@ -53,7 +56,7 @@ func main() {
 
 	switch chosen {
 	case 1: ShowMenu()
-	case 2:
+	case 2: CreateOrder()
 	case 3:
 	case 4:
 	case 5:
