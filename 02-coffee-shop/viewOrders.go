@@ -29,5 +29,5 @@ func ViewOrders() {
 		fmt.Println("--------------------------------")
 	}
 
-	main()
+	Landing()
 }

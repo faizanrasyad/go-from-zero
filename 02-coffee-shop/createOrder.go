@@ -39,7 +39,7 @@ func CreateOrder() {
 
 	fmt.Println("")
 	CreateReceipt(newOrder)
-	main()
+	Landing()
 
 }
 
@@ -121,5 +121,5 @@ func DeleteOrder() {
 		fmt.Println(order.OrderID, "order has been deleted.")
 	}
 
-	main()
+	Landing()
 }

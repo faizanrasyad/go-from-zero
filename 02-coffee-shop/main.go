@@ -1,25 +1,27 @@
 package main
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 )
 
 type MenuItem struct {
-	ID int
-	Name string
-	Price float64
+	ID 		int	
+	Name 	string 
+	Price 	float64 
 }
 
 type Order struct {
-	OrderID string
-	CustomerName string
-	Items []OrderItem
+	OrderID string 
+	CustomerName string 
+	Items []OrderItem 
 }
 
 type OrderItem struct {
 	Menu MenuItem
-	Quantity int
+	Quantity int 
 }
 
 var Menus = []MenuItem {
@@ -36,31 +38,53 @@ var Menus = []MenuItem {
 var Orders []Order
 
 func main() {
-	fmt.Println("===========================")
-	fmt.Println("BrewHub Coffee Cashier")
-	fmt.Println("===========================")
-	fmt.Println("")
-	fmt.Println("1. Show Menu")
-	fmt.Println("2. Create Order")
-	fmt.Println("3. View Orders")
-	fmt.Println("4. Search Order")
-	fmt.Println("5. Cancel Order")
-	fmt.Println("6. Daily Sales")
-	fmt.Println("7. Exit")
-	fmt.Print("Choose: ")
-	
-	var chosen int
-	fmt.Scanln(&chosen)
-	fmt.Println("")
+	LoadOrders()
+	Landing()
+}
 
-	switch chosen {
-	case 1: ShowMenu()
-	case 2: CreateOrder()
-	case 3: ViewOrders()
-	case 4: SearchOrder()
-			main()
-	case 5: DeleteOrder()
-	case 6: DailySales()
-	case 7: os.Exit(0)
+func marshall() {
+	jsonData, err := json.MarshalIndent(Orders, "", " ")
+
+	if err != nil {
+		fmt.Println("Error : ", err)
+		return
 	}
+
+	err = os.WriteFile("orders.json", jsonData, 0644)
+	if err != nil {
+		fmt.Println("File write error :", err)
+		return
+	}
+
+}
+
+func SaveOrders() {
+	marshall()
+	fmt.Println("Successfully exported Orders to JSON")
+}
+
+func LoadOrders() {
+	_, err := os.Stat("orders.json")
+
+	if errors.Is(err, os.ErrNotExist) {
+		fmt.Printf("File '%s' not found\n", "orders.json")
+	} else if err != nil {
+		fmt.Println("Error checking fil;e status:", err)
+	}  else {
+		fmt.Println("Loading data...")
+
+		fileData, err := os.ReadFile("orders.json")
+		if err != nil {
+			fmt.Println("Error reading file:", err)
+			return
+		}
+
+		err = json.Unmarshal(fileData, &Orders)
+		if err != nil {
+			fmt.Println("Error parsing JSON data:", err)
+			return
+		}
+	}
+
+	fmt.Println("Loaded", len(Orders),"users.")
 }

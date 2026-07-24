@@ -18,6 +18,7 @@ func DailySales() {
 	fmt.Println("Average Order : Rp", averageOrder())
 	bestSeller()
 	averageOrder()
+	Landing()
 }
 
 func averageOrder() float64 {

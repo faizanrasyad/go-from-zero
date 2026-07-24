@@ -12,5 +12,5 @@ func ShowMenu() {
 		fmt.Println(strconv.Itoa(count) + ".", Menus[i].Name + "		Rp", Menus[i].Price)
 	}
 	fmt.Println("")
-	main()
+	Landing()
 }

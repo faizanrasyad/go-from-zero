@@ -1,0 +1,38 @@
+[
+ {
+  "OrderID": "ORD001",
+  "CustomerName": "Fiz",
+  "Items": [
+   {
+    "Menu": {
+     "ID": 1,
+     "Name": "Espresso",
+     "Price": 25000
+    },
+    "Quantity": 1
+   }
+  ]
+ },
+ {
+  "OrderID": "ORD002",
+  "CustomerName": "Budi",
+  "Items": [
+   {
+    "Menu": {
+     "ID": 2,
+     "Name": "Latte",
+     "Price": 35000
+    },
+    "Quantity": 2
+   },
+   {
+    "Menu": {
+     "ID": 3,
+     "Name": "Cappuccino",
+     "Price": 32000
+    },
+    "Quantity": 3
+   }
+  ]
+ }
+]
