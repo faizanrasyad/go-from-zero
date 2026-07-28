@@ -42,7 +42,8 @@ func main() {
 	Landing()
 }
 
-func marshall() {
+// JSON Output : Convert Slice of Struct into JSON
+func MarshalOrders() {
 	jsonData, err := json.MarshalIndent(Orders, "", " ")
 
 	if err != nil {
@@ -59,21 +60,19 @@ func marshall() {
 }
 
 func SaveOrders() {
-	marshall()
+	MarshalOrders()
 	fmt.Println("Successfully exported Orders to JSON")
 }
 
+// JSON Input : Convert JSON to Slice of Struct
 func LoadOrders() {
-	_, err := os.Stat("orders.json")
+	fileData, err := os.ReadFile("orders.json")
 
 	if errors.Is(err, os.ErrNotExist) {
 		fmt.Printf("File '%s' not found\n", "orders.json")
-	} else if err != nil {
-		fmt.Println("Error checking fil;e status:", err)
-	}  else {
+	} else {
 		fmt.Println("Loading data...")
 
-		fileData, err := os.ReadFile("orders.json")
 		if err != nil {
 			fmt.Println("Error reading file:", err)
 			return
