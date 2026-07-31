@@ -4,39 +4,40 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 func Home (w http.ResponseWriter, r*http.Request) {
 	fmt.Fprintln(w, "Welcome to BrewHub Coffee API!")
 }
 
+func GetMenuByID (w http.ResponseWriter, r*http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	id, _ := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/menu/"))
+
+	var menu MenuItem
+	for i := 0; i < len(Menus); i++ {
+		if (Menus[i].ID == id) {
+			menu = Menus[i]
+			i = len(Menus)
+		}
+	}
+	
+	if (menu.ID != 0) {
+		json.NewEncoder(w).Encode(menu)
+	} else {
+		http.Error(w, "Menu not found", http.StatusNotFound)
+	}
+	
+}
+
 func GetMenu (w http.ResponseWriter, r*http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(Menus)
-	if err != nil {
-		http.Error(w, "Failed to encode JSON", http.StatusInternalServerError)
-		return
-	}
+
+	json.NewEncoder(w).Encode(Menus)
+	
 }
 
-func OrdersHandler (w http.ResponseWriter, r*http.Request) {
-	switch r.Method {
-	case http.MethodGet:
-		GetOrders(w, r)
-	case http.MethodPost:
-		CreateOrder(w, r)
-	}
-}
 
-func CreateOrder(w http.ResponseWriter, r *http.Request) {
-	// Do Create Order!
-}
-
-func GetOrders(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(Orders)
-	if err != nil {
-		http.Error(w, "Failed to encode JSON", http.StatusInternalServerError)
-		return
-	}
-}

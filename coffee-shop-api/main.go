@@ -9,7 +9,7 @@ func main() {
 
 	http.HandleFunc("/", Home)
 	http.HandleFunc("/menu", GetMenu)
-	http.HandleFunc("/orders", OrdersHandler)
+	http.HandleFunc("/menu/", GetMenuByID)
 
 	fmt.Println("Server running on :8080")
 	err := http.ListenAndServe(":8080", nil)
