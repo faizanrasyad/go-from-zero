@@ -23,6 +23,6 @@ func Endpoints() {
 	http.HandleFunc("/", Home)
 	http.HandleFunc("/menu", GetMenu)
 	http.HandleFunc("/menu/", GetMenuByID)
-	http.HandleFunc("/orders", OrdersHandler)
-	http.HandleFunc("/orders/", OrderByIDHandler)
+	http.HandleFunc("/order", OrdersHandler)
+	http.HandleFunc("/order/", OrderByIDHandler)
 }
